@@ -1,5 +1,5 @@
 import Example10_10_in_bisect
-import time 
+import timeit 
 
 def make_dic(filenametxt):
 	'''Write a function that reads the words in words.txt and stores them as keys in a
@@ -15,28 +15,23 @@ def make_dic(filenametxt):
 
 def check_time(f, par, word):
 	start = 0
-	start = time.time()		
+	start = timeit.default_timer() #reason time.time() do something else on Win10 and Py3.8
 	if f(par, word):			
 		print('Have this word')
 	else:
 		print('Havnt this word')	
-	end = time.time()
-	return "{:.15f}".format(end - start)
+	end = timeit.default_timer()
+	return "{:.16f}".format(end - start)
 
 def in_dic(d, word):
 	if	word in d:
 		return True
+	
 
 def in_list(t, word):
 	if word in t:
 		return True
-
-def test_time_dic(in_dic, d, word):
-	sum_time = 0
-	for i in range(0, 10**6):
-		sum_time += check_time(in_dic, d, word)
-	return sum_time
-
+	
 
 if __name__ == '__main__':  
     s = 'words.txt' 
@@ -46,6 +41,6 @@ if __name__ == '__main__':
     print('time search in dictionary', check_time(in_dic, d, your_word))
     print('time search in list bisect', check_time(Example10_10_in_bisect.in_bisect, t, your_word))
     print('time search in list', check_time(in_list, t, your_word))
-    print('sum', test_time_dic)
+
 
 
